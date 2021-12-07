@@ -1,0 +1,109 @@
+1.In a tournament there are(N+1) players, N players have already played and their scores are denoted by an array A . Here, A1 is the score of the first player, A2 of the second, ..., AN of the Nth player.
+Now, the organizers decide the ranks according to the following rules:
+The player x scored more than player y, player x gets a better rank.
+In case of tie, the player with lower indices gets a better rank.
+Now, it is the turn of the(N+1)th player to play. Before playing, he wants to know the number of ranks that he can secure so that he can decide his strategy.
+Now, the jury has some scoreboard updates. Therefore, your task is to tell the jury after every update the number of distinct possible ranks that he can get.
+
+
+
+
+
+SOLUTION C++
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define ll long long
+
+int main()
+
+{  
+
+   ios_base::sync_with_stdio(false);
+
+   cin.tie(NULL);
+
+   
+
+   ll t;
+
+   cin>>t;
+
+   while(t--)
+
+   {
+
+       ll n,q;
+
+       cin>>n>>q;
+
+       ll arr[n+1]={0};
+
+       unordered_map<ll,ll>m;
+
+       for(ll i=1;i<=n;i++)
+
+       {
+
+         ll num;
+
+         cin>>num;
+
+         arr[i]=num;
+
+         m[num]=m[num]+1;
+
+       }
+
+       for(ll i=1;i<=q;i++)
+
+       {
+
+          ll a,b;
+
+          cin>>a>>b;
+
+          int numR=arr[a];
+
+           
+
+          if(m[numR]==1)
+
+          {  arr[a]=b;
+
+            auto itr=m.find(numR);
+
+            if(itr!=m.end())
+
+                m.erase(itr) ;
+
+          }
+
+          else
+
+          {
+
+            arr[a]=b;
+
+            m[numR]=m[numR]-1;
+
+          }
+
+          m[b]=m[b]+1;
+
+         
+
+           cout<<m.size()+1<<endl;
+
+       }
+
+   
+
+   }
+
+ return 0;
+
+     
+
+}
